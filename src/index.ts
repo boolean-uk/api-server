@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
-import server from './server'
-
 dotenv.config()
+
+import server from './server'
 
 const port = process.env.PORT || 3000
 
