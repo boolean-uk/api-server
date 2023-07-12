@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import { Octokit } from 'octokit'
 
 declare global {
   namespace Express {
@@ -10,15 +11,28 @@ declare global {
   }
 }
 
-export const GithubUser = (
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
+
+const orgName = process.env.GITHUB_ORG || ''
+
+export const GithubUser = async (
   req: Request,
-  _res: Response,
+  res: Response,
   next: NextFunction,
 ) => {
   const { username } = req.params
   req.context = {
     username: username,
   }
-  // TODO check if username is part of boolean team
-  next()
+  try {
+    await octokit.rest.orgs.getMembershipForUser({
+      org: orgName,
+      username: username,
+    })
+    next()
+  } catch (e) {
+    return res.status(401).json({
+      error: `you must be part of the ${orgName} organisation to use this api`,
+    })
+  }
 }
