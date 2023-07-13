@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from 'express'
+import cors from 'cors'
 import swaggerUi from 'swagger-ui-express'
 import fs from 'fs'
 import YAML from 'yaml'
@@ -8,6 +9,7 @@ import { GithubUser } from './middleware/github-username.middleware'
 const app: Express = express()
 
 app.use(express.json())
+app.use(cors())
 
 // loading api docs
 const docFile = fs.readFileSync('./docs/api.yml', 'utf8')
