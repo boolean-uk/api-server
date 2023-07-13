@@ -25,14 +25,12 @@ export class UserTodoRepository {
   }
 
   updateTodo(id: number, dto: UpdateTodoDto): Todo | undefined {
-    let todo = this.getTodoById(id)
+    const todo = this.getTodoById(id)
     if (!todo) {
       return todo
     }
-    todo = {
-      ...todo,
-      ...dto,
-    }
+    Object.assign(todo, dto)
+
     return todo
   }
 

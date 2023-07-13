@@ -2,10 +2,12 @@ import { z } from 'zod'
 
 export const ValidateUpdateTodoDto = z.object({
   body: z.object({
-    title: z.string({
-      required_error: 'title is required',
-      invalid_type_error: 'title must be a string',
-    }),
+    title: z
+      .string({
+        required_error: 'title is required',
+        invalid_type_error: 'title must be a string',
+      })
+      .min(3, 'title must be at least 3 characters long'),
     completed: z.boolean({
       required_error: 'completed is required',
       invalid_type_error: 'completed must be a boolean',
