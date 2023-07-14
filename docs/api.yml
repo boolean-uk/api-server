@@ -3,7 +3,7 @@ info:
   title: API Server
   version: 0.0.1
 servers:
-  - url: https://boolean-api-server.fly.io
+  - url: https://boolean-api-server.fly.dev
 tags:
   - name: todo
     description: A todo list api
@@ -21,7 +21,7 @@ paths:
           description: your github username
           required: true
           schema:
-            type: string      
+            type: string
       requestBody:
         description: Create a new todo in the list
         content:
@@ -117,13 +117,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequest' 
+                $ref: '#/components/schemas/BadRequest'
         '404':
           description: Todo not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TodoNotFound'          
+                $ref: '#/components/schemas/TodoNotFound'
         '401':
           description: The username provided is not part of the boolean-uk github organisation
           content:
@@ -148,7 +148,7 @@ paths:
           description: ID of todo to return
           required: true
           schema:
-            type: number            
+            type: number
       requestBody:
         description: Update an existent todo in the list
         content:
@@ -174,7 +174,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequest' 
+                $ref: '#/components/schemas/BadRequest'
         '401':
           description: The username provided is not part of the boolean-uk github organisation
           content:
@@ -193,7 +193,7 @@ paths:
           description: your github username
           required: true
           schema:
-            type: string      
+            type: string
         - name: todoId
           in: path
           description: Todo id to delete
@@ -212,19 +212,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequest'            
+                $ref: '#/components/schemas/BadRequest'
         '404':
           description: Todo not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TodoNotFound'  
+                $ref: '#/components/schemas/TodoNotFound'
         '401':
           description: The username provided is not part of the boolean-uk github organisation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GithubAuthIssue'                        
+                $ref: '#/components/schemas/GithubAuthIssue'
 components:
   schemas:
     Todo:
@@ -252,7 +252,7 @@ components:
       properties:
         error:
           type: array
-          example: 
+          example:
             - body - title is required
             - params - id must be a number
           items:
