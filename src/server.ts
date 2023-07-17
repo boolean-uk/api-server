@@ -5,7 +5,7 @@ import fs from 'fs';
 import YAML from 'yaml';
 import todoRouter from './todo/todo.router';
 import { GithubUser } from './middleware/github-username.middleware';
-import { router as fruitRouter} from './fruit/fruit.router';
+import { router as groceryRouter} from './fruit/grocery.router';
 
 const app: Express = express();
 
@@ -22,6 +22,6 @@ app.get('/', (_req: Request, res: Response) => {
 });
 
 app.use('/:username/todo', GithubUser, todoRouter);
-app.use('/fruits', fruitRouter);
+app.use('/groceries', groceryRouter);
 
 export default app;

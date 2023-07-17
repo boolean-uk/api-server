@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 
-interface Fruit {
+interface Grocery {
   id: string,
   name: string,
-  type: string,
+  type: 'fruit' | 'vegetable',
   price: number,
 }
 
-const FRUITS_LIST: Fruit[] = [
+const GROCERIES_LIST: Grocery[] = [
   {
     id: '001-beetroot',
     name: 'beetroot',
@@ -70,8 +70,8 @@ const FRUITS_LIST: Fruit[] = [
   }
 ];
 
-export class FruitController {
-  public getFruitsList(req: Request, res: Response) {
-    return res.status(200).json(FRUITS_LIST);
+export class GroceryController {
+  public getGroceriesList(_req: Request, res: Response) {
+    return res.status(200).json(GROCERIES_LIST);
   }
 }
