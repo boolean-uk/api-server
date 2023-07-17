@@ -1,18 +1,19 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { TodoRepository } from './todo.repository';
 import { UserTodoRepository } from './user-todo.repository';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { Context } from '../middleware/context';
 
 const repo = new TodoRepository();
 
-const getRepoFromUsername = (req: Request): UserTodoRepository => {
-  const { username } = req.context;
+const getRepoFromUsername = (req: Context): UserTodoRepository => {
+  const username = req.context?.username || '';
   const todoRepo = repo.getOrCreateUserRepository(username);
   return todoRepo;
 };
 
-export const GetAllTodos = (req: Request, res: Response) => {
+export const GetAllTodos = (req: Context, res: Response) => {
   const todoRepo = getRepoFromUsername(req);
 
   const todos = todoRepo.getTodos();
@@ -20,7 +21,7 @@ export const GetAllTodos = (req: Request, res: Response) => {
   return res.status(200).json(todos);
 };
 
-export const CreateTodo = (req: Request, res: Response) => {
+export const CreateTodo = (req: Context, res: Response) => {
   const dto: CreateTodoDto = req.body;
   const todoRepo = getRepoFromUsername(req);
 
@@ -29,7 +30,7 @@ export const CreateTodo = (req: Request, res: Response) => {
   return res.status(201).json(todo);
 };
 
-export const UpdateTodo = (req: Request, res: Response) => {
+export const UpdateTodo = (req: Context, res: Response) => {
   const id = Number(req.params.id);
   const dto: UpdateTodoDto = req.body;
   const todoRepo = getRepoFromUsername(req);
@@ -42,7 +43,7 @@ export const UpdateTodo = (req: Request, res: Response) => {
   return res.status(200).json(todo);
 };
 
-export const DeleteTodo = (req: Request, res: Response) => {
+export const DeleteTodo = (req: Context, res: Response) => {
   const id = Number(req.params.id);
   const todoRepo = getRepoFromUsername(req);
 

@@ -1,22 +1,13 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import { Octokit } from 'octokit';
-
-declare global {
-  namespace Express {
-    interface Request {
-      context: {
-        username: string
-      }
-    }
-  }
-}
+import { Context } from './context';
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
 const orgName = process.env.GITHUB_ORG || '';
 
 export const GithubUser = async (
-  req: Request,
+  req: Context,
   res: Response,
   next: NextFunction,
 ) => {
