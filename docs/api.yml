@@ -246,9 +246,20 @@ components:
     Fruit:
       type: object
       properties:
+        id:
+          type: string
+          example: 006-bananas
         name:
           type: string
-          example: Apple
+          example: bananas
+        type:
+          type: string
+          enum: [vegetable, fruit]
+          example: vegetable
+        price:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
     Todo:
       required:
         - title
