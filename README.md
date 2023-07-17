@@ -38,3 +38,7 @@ npm run dev
 Make sure you have logged in to `fly` via cli (`fly auth login`) and then run `npm run deploy`.
 
 You can verify the status of the online app at `https://boolean-api-server.fly.dev/` and  `https://fly.io/dashboard/boolean-uk`.
+
+1. Make sure you are authenticated against this app; run `fly auth login` if needed.
+2. If needed, add or update the environment variables by running `fly secrets set VAR_NAME=xxx`
+3. Deploy with `npm run deploy`
