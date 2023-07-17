@@ -8,13 +8,13 @@ tags:
   - name: todo
     description: A todo list api
 paths:
-  /fruits:
+  /groceries:
     get:
       tags:
-        - fruits
-      summary: Get a list of all available fruits
-      description: Returns an array of fruits
-      operationId: getFruitsList
+        - groceries
+      summary: Get a list of all available groceries
+      description: Returns an array of groceries
+      operationId: getGroceriesList
       responses:
         '200':
           description: successful operation
@@ -23,7 +23,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Fruit'
+                  $ref: '#/components/schemas/Grocery'
   /{username}/todo:
     post:
       tags:
@@ -243,7 +243,7 @@ paths:
                 $ref: '#/components/schemas/GithubAuthIssue'
 components:
   schemas:
-    Fruit:
+    Grocery:
       type: object
       properties:
         id:
@@ -255,7 +255,7 @@ components:
         type:
           type: string
           enum: [vegetable, fruit]
-          example: vegetable
+          example: fruit
         price:
           type: number
           minimum: 0
