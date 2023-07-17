@@ -170,7 +170,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Todo'
+              $ref: '#/components/schemas/UpdateTodo'
         required: true
       responses:
         '200':
@@ -265,9 +265,14 @@ components:
         - title
       type: object
       properties:
-        id:
-          type: number
-          example: 10
+        title:
+          type: string
+          example: Clean my room
+    UpdateTodo:
+      required:
+        - title
+      type: object
+      properties:
         title:
           type: string
           example: Clean my room
