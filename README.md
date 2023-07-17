@@ -26,3 +26,15 @@ Run the server in development mode with the following command:
 ```bash
 npm run dev
 ```
+
+## Debugging
+
+1. Set a breakpoint anywhere
+2. Either compile the app or watch (`npm run build` or `npm run watch`)
+3. Start the server in debug mode (launch `Debug API server`)
+
+## Deploy
+
+Make sure you have logged in to `fly` via cli (`fly auth login`) and then run `npm run deploy`.
+
+You can verify the status of the online app at `https://boolean-api-server.fly.dev/` and  `https://fly.io/dashboard/boolean-uk`.
