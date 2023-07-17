@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { AnyZodObject, ZodError } from 'zod';
 
-const formatErrorPart = <T>(
+type ZodErrorsType = Record<string, [] | Record<string, []>>;
+
+const formatErrorPart = (
   part: string,
-  errors: Record<string, [] | Record<string, []>>,
+  errors: ZodErrorsType,
 ): string[] => {
   const issues: string[] = [];
   if (!errors) {
@@ -25,15 +27,15 @@ const formatErrorPart = <T>(
 const formatError = (error: ZodError): string[] => {
   const paramsIssues = formatErrorPart(
     'params',
-    (error.format() as unknown as any).params,
+    (error.format() as unknown as {params: ZodErrorsType}).params,
   );
   const bodyIssues = formatErrorPart(
     'body',
-    (error.format() as unknown as any).body,
+    (error.format() as unknown as {body: ZodErrorsType}).body,
   );
   const queryIssues = formatErrorPart(
     'query',
-    (error.format() as unknown as any).query,
+    (error.format() as unknown as {query: ZodErrorsType}).query,
   );
   const issues = [...paramsIssues, ...bodyIssues, ...queryIssues];
   return issues;
