@@ -17,12 +17,12 @@ The data held by the server is held in memory
   - The name of the organisation to check users against. For example, `boolean-uk`
 - `GITHUB_TOKEN`
   - The personal access token for the server to use when sending requests.
-  - The token requires the "Organization: Read access to members" permission to successfull work
+  - The token requires the "Organization: Read access to members" permission to successful work
 
 ## Development
 
 Run the server in development mode with the following command:
 
-```
+```bash
 npm run dev
 ```
