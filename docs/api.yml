@@ -1,13 +1,29 @@
 openapi: 3.0.3
 info:
   title: API Server
-  version: 0.0.1
+  version: 0.0.2
 servers:
   - url: https://boolean-api-server.fly.dev
 tags:
   - name: todo
     description: A todo list api
 paths:
+  /fruits:
+    get:
+      tags:
+        - fruits
+      summary: Get a list of all available fruits
+      description: Returns an array of fruits
+      operationId: getFruitsList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fruit'
   /{username}/todo:
     post:
       tags:
@@ -227,6 +243,12 @@ paths:
                 $ref: '#/components/schemas/GithubAuthIssue'
 components:
   schemas:
+    Fruit:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Apple
     Todo:
       required:
         - title
