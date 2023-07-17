@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const ValidateUpdateTodoDto = z.object({
   body: z.object({
@@ -22,4 +22,4 @@ export const ValidateUpdateTodoDto = z.object({
       }),
     ),
   }),
-})
+});

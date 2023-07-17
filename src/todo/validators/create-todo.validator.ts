@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const ValidateCreateTodoDto = z.object({
   body: z.object({
@@ -9,4 +9,4 @@ export const ValidateCreateTodoDto = z.object({
       })
       .min(3, 'title must be at least 3 characters long'),
   }),
-})
+});
