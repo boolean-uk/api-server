@@ -15,6 +15,13 @@ paths:
       summary: Get a list of all available groceries
       description: Returns an array of groceries
       operationId: getGroceriesList
+      parameters:
+        - name: type
+          in: query
+          description: The type of items to return
+          schema:
+            type: string
+            example: fruit or vegetable
       responses:
         '200':
           description: successful operation
@@ -24,6 +31,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Grocery'
+        '400':
+          description: Failure - No search parameters provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /{username}/todo:
     post:
       tags:
@@ -243,6 +256,12 @@ paths:
                 $ref: '#/components/schemas/GithubAuthIssue'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: invalid item type
     Grocery:
       type: object
       properties:
