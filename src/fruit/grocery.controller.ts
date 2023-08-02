@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response } from 'express';
 
 interface Grocery {
   id: string
@@ -68,18 +68,18 @@ const GROCERIES_LIST: Grocery[] = [
     type: 'vegetable',
     price: 0.7,
   },
-]
+];
 
 export class GroceryController {
   public getGroceriesList(req: Request, res: Response) {
-    const { type } = req.query
+    const { type } = req.query;
     if (!type) {
-      return res.status(200).json(GROCERIES_LIST)
+      return res.status(200).json(GROCERIES_LIST);
     }
     if (type !== 'fruit' && type !== 'vegetable') {
-      return res.status(400).json({ error: `invalid type value: "${type}"` })
+      return res.status(400).json({ error: `invalid type value: "${type}"` });
     }
-    const items = GROCERIES_LIST.filter((item) => item.type === type)
-    return res.status(200).json(items)
+    const items = GROCERIES_LIST.filter((item) => item.type === type);
+    return res.status(200).json(items);
   }
 }
