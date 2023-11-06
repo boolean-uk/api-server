@@ -4,8 +4,8 @@ import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
 import YAML from 'yaml';
 import todoRouter from './todo/todo.router';
-import { GithubUser } from './middleware/github-username.middleware';
 import { router as groceryRouter} from './fruit/grocery.router';
+import { Username } from './middleware/username.middleware';
 
 const app: Express = express();
 
@@ -21,7 +21,13 @@ app.get('/', (_req: Request, res: Response) => {
   res.status(200).json({ message: 'API server is running' });
 });
 
-app.use('/:username/todo', GithubUser, todoRouter);
+app.use('/:username/todo', Username, todoRouter);
 app.use('/groceries', groceryRouter);
+
+app.use('*', (_req: Request, res: Response) => {
+  res.status(404).json({
+    message: 'Route not found'
+  });
+});
 
 export default app;
