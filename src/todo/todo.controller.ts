@@ -9,8 +9,7 @@ const repo = new Repository<UserTodoRepository>(UserTodoRepository);
 
 const getRepoFromUsername = (req: Context): UserTodoRepository => {
   const username = req.context?.username || '';
-  const todoRepo = repo.getOrCreateUserRepository(username);
-  return todoRepo;
+  return repo.getOrCreateUserRepository(username);
 };
 
 export const GetAllTodos = (req: Context, res: Response) => {
