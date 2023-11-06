@@ -4,6 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
 import YAML from 'yaml';
 import todoRouter from './todo/todo.router';
+import pokemonRouter from './pokemon/pokemon.router';
 import { router as groceryRouter} from './fruit/grocery.router';
 import { Username } from './middleware/username.middleware';
 
@@ -22,6 +23,7 @@ app.get('/', (_req: Request, res: Response) => {
 });
 
 app.use('/:username/todo', Username, todoRouter);
+app.use('/:username/pokemon', Username, pokemonRouter);
 app.use('/groceries', groceryRouter);
 
 app.use('*', (_req: Request, res: Response) => {
