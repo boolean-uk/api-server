@@ -1,14 +1,18 @@
 openapi: 3.0.3
 info:
   title: API Server
-  version: 0.0.2
+  version: 0.0.4
 servers:
   - url: https://boolean-api-server.fly.dev
 tags:
+  - name: groceries
+    description: A groceries api
   - name: todo
     description: A todo list api
   - name: pokemon
     description: A pokemon api
+  - name: contact
+    description: A contact api
 paths:
   /groceries:
     get:
@@ -430,6 +434,223 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GithubAuthIssue'
+  /{username}/contact:
+    post:
+      tags:
+        - contact
+      summary: Add a new contact to the list
+      description: Add a new contact to the list
+      operationId: addContact
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Create a new contact in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Contact'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Contact'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    get:
+      tags:
+        - contact
+      summary: Get all of the contacts in the list
+      description: Returns an array of all of the existing contacts in the list
+      operationId: getAllContacts
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Contact'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+  /{username}/contact/{contactId}:
+    get:
+      tags:
+        - contact
+      summary: Find contact by ID
+      description: Returns a single contact
+      operationId: getContactById
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+        - name: contactId
+          in: path
+          description: ID of contact to return
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '400':
+          description: id must be a number
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Contact not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactNotFound'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    put:
+      tags:
+        - contact
+      summary: Update an existing contact
+      description: Update an existing contact by Id
+      operationId: updateContact
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+        - name: contactId
+          in: path
+          description: ID of contact to return
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Update an existent contact in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContact'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '404':
+          description: Contact not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactNotFound'
+        '400':
+          description: validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    delete:
+      tags:
+        - contact
+      summary: Deletes a contact
+      description: delete a contact
+      operationId: deleteContact
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+        - name: contactId
+          in: path
+          description: Contact id to delete
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful deletion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '400':
+          description: id must be a number
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Todo not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactNotFound'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
 components:
   schemas:
     Error:
@@ -517,6 +738,82 @@ components:
         error:
           type: string
           example: pokemon not found
+    Contact:
+      required:
+        - firstName
+        - lastName
+        - street
+        - city
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Rick
+        lastName:
+          type: string
+          example: Sanchez
+        street:
+          type: string
+          example: Morty Lane
+        city:
+          type: string
+          example: Jerryville
+        gender:
+          type: string
+          example: Male
+        email:
+          type: string
+          example: rick@sanchez.com
+        jobTitle:
+          type: string
+          example: Scientist
+        latitude:
+          type: number
+          example: 42
+        longitude:
+          type: number
+          example: 629
+    UpdateContact:
+      required:
+        - firstName
+        - lastName
+        - street
+        - city
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Rick
+        lastName:
+          type: string
+          example: Sanchez
+        street:
+          type: string
+          example: Morty Lane
+        city:
+          type: string
+          example: Jerryville
+        gender:
+          type: string
+          example: Male
+        email:
+          type: string
+          example: rick@sanchez.com
+        jobTitle:
+          type: string
+          example: Scientist
+        latitude:
+          type: number
+          example: 42
+        longitude:
+          type: number
+          example: 629
+    ContactNotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: contact not found
     BadRequest:
       type: object
       properties:
