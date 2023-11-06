@@ -334,6 +334,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GithubAuthIssue'
+  /{username}/pokemon/{pokemonId}:
     put:
       tags:
         - pokemon
