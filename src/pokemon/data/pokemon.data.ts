@@ -1,0 +1,26 @@
+export default [
+  {
+    'id': 1,
+    'name': 'Pikachu',
+    'image': 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Pok%C3%A9mon_Pikachu_art.png/220px-Pok%C3%A9mon_Pikachu_art.png',
+    'liked': false
+  },
+  {
+    'id': 2,
+    'name': 'Charmander',
+    'image': 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Pok%C3%A9mon_Charmander_art.png/220px-Pok%C3%A9mon_Charmander_art.png',
+    'liked': false
+  },
+  {
+    'id': 3,
+    'name': 'Squirtle',
+    'image': 'https://upload.wikimedia.org/wikipedia/en/5/59/Pok%C3%A9mon_Squirtle_art.png',
+    'liked': false
+  },
+  {
+    'id': 4,
+    'name': 'Bulbasaur',
+    'image': 'https://upload.wikimedia.org/wikipedia/en/2/28/Pok%C3%A9mon_Bulbasaur_art.png',
+    'liked': false
+  }
+];

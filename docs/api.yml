@@ -7,6 +7,8 @@ servers:
 tags:
   - name: todo
     description: A todo list api
+  - name: pokemon
+    description: A pokemon api
 paths:
   /groceries:
     get:
@@ -255,6 +257,178 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GithubAuthIssue'
+  /{username}/pokemon:
+    get:
+      tags:
+        - pokemon
+      summary: Get all of the pokemon in the list
+      description: Returns an array of all of the existing pokemon in the list
+      operationId: getAllPokemon
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pokemon'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    post:
+      tags:
+        - pokemon
+      summary: Add a new pokemon to the list
+      description: Add a new pokemon to the list
+      operationId: addPokemon
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Create a new pokemon in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pokemon'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Pokemon'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pokemon'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pokemon'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Pokemon'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    put:
+      tags:
+        - pokemon
+      summary: Update an existing pokemon
+      description: Update an existing pokemon by Id
+      operationId: updatePokemon
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+        - name: pokemonId
+          in: path
+          description: ID of pokemon to return
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Update an existent pokemon in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePokemon'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pokemon'
+        '404':
+          description: Pokemon not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PokemonNotFound'
+        '400':
+          description: validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    delete:
+      tags:
+        - pokemon
+      summary: Deletes a pokemon
+      description: delete a pokemon
+      operationId: deletePokemon
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+        - name: pokemonId
+          in: path
+          description: Pokemon id to delete
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful deletion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pokemon'
+        '400':
+          description: id must be a number
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Pokemon not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PokemonNotFound'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
 components:
   schemas:
     Error:
@@ -305,6 +479,43 @@ components:
         error:
           type: string
           example: todo not found
+    Pokemon:
+      required:
+        - name
+        - image
+      type: object
+      properties:
+        name:
+          type: string
+          example: Pikachu
+        image:
+          type: string
+          example: https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Pok%C3%A9mon_Pikachu_art.png/220px-Pok%C3%A9mon_Pikachu_art.png
+        liked:
+          type: boolean
+          example: false
+    UpdatePokemon:
+      required:
+        - name
+        - image
+        - liked
+      type: object
+      properties:
+        name:
+          type: string
+          example: Pikachu
+        image:
+          type: string
+          example: https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/Pok%C3%A9mon_Pikachu_art.png/220px-Pok%C3%A9mon_Pikachu_art.png
+        liked:
+          type: boolean
+          example: true
+    PokemonNotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: pokemon not found
     BadRequest:
       type: object
       properties:
@@ -328,3 +539,9 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Todo'
+    Pokemon:
+      description: Pokemon object that needs to be added to the list
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pokemon'
