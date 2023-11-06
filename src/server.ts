@@ -25,9 +25,9 @@ app.use('/:username/todo', Username, todoRouter);
 app.use('/groceries', groceryRouter);
 
 app.use('*', (_req: Request, res: Response) => {
-    res.status(404).json({
-        message: 'Route not found'
-    })
-})
+  res.status(404).json({
+    message: 'Route not found'
+  });
+});
 
 export default app;
