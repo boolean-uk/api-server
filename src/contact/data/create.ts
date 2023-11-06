@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { CreateContactDto } from "../dto/create-contact.dto";
+import { CreateContactDto } from '../dto/create-contact.dto';
 
 export const createContact = (): CreateContactDto => {
   return {
@@ -13,8 +13,8 @@ export const createContact = (): CreateContactDto => {
     latitude: faker.location.latitude(),
     longitude: faker.location.longitude()
   };
-}
+};
 
 export const createContacts = (length: number): CreateContactDto[] => {
   return Array.from({ length }, createContact);
-}
+};

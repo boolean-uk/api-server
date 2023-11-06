@@ -10,9 +10,9 @@ export class UserContactRepository extends UserRepository<Contact, CreateContact
       return {
         ...contact,
         id: index + 1
-      }
-    })
-    this.id = this.data.length + 1
+      };
+    });
+    this.id = this.data.length + 1;
   }
 
   create(dto: CreateContactDto): Contact {
