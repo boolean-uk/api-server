@@ -1,5 +1,5 @@
 import express from 'express';
-import { CreateContact, DeleteContact, GetAllContacts, GetContactByID, UpdateContact } from './contact.controller';
+import { controller } from './contact.controller';
 import { Validate } from '../middleware/validate';
 import { ValidateCreateContactDto } from './validators/create-contact.validator';
 import { ValidateDeleteContactDto } from './validators/delete-contact.validator';
@@ -8,10 +8,10 @@ import { ValidateGetById } from '../validators/get-by-id.validator';
 
 const router = express.Router();
 
-router.get('/', GetAllContacts);
-router.get('/:id', Validate(ValidateGetById), GetContactByID);
-router.post('/', Validate(ValidateCreateContactDto), CreateContact);
-router.delete('/:id', Validate(ValidateDeleteContactDto), DeleteContact);
-router.put('/:id', Validate(ValidateUpdateContactDto), UpdateContact);
+router.get('/', controller.GetAll.bind(controller));
+router.get('/:id', Validate(ValidateGetById), controller.GetByID.bind(controller));
+router.post('/', Validate(ValidateCreateContactDto), controller.Create.bind(controller));
+router.delete('/:id', Validate(ValidateDeleteContactDto), controller.Delete.bind(controller));
+router.put('/:id', Validate(ValidateUpdateContactDto), controller.Update.bind(controller));
 
 export default router;
