@@ -5,13 +5,13 @@ import { Identity } from './identity';
 import { Response } from 'express';
 
 export class Controller<T extends Identity, CreateDto, UpdateDto> {
-  private repository;
+  protected repository;
 
   constructor(repository: Repository<UserRepository<T, CreateDto, UpdateDto>>) {
     this.repository = repository;
   }
     
-  private getRepoFromUsername(req: Context): UserRepository<T, CreateDto, UpdateDto> {
+  protected getRepoFromUsername(req: Context): UserRepository<T, CreateDto, UpdateDto> {
     const username = req.context?.username || '';
     return this.repository.getOrCreateUserRepository(username);
   }
@@ -19,6 +19,11 @@ export class Controller<T extends Identity, CreateDto, UpdateDto> {
   GetAll(req: Context, res: Response) {
     const data = this.getRepoFromUsername(req).getAll();
         
+    return res.status(200).json(data);
+  }
+
+  GetAllByFilter(property: string, value: any, req: Context, res: Response) {
+    const data = this.getRepoFromUsername(req).getAllByFilter(property, value);
     return res.status(200).json(data);
   }
 

@@ -14,6 +14,10 @@ export abstract class UserRepository<T extends Identity, CreateDto, UpdateDto> {
     return this.data.find(item => item.id === id);
   }
 
+  getAllByFilter(property: string, value: any): T[] {
+    return this.data.filter((item: any) => item[property] === value);
+  }
+
   update(id: number, dto: UpdateDto): T | undefined {
     const item = this.getById(id);
     if (!item) {
