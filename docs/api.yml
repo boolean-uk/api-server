@@ -13,6 +13,8 @@ tags:
     description: A pokemon api
   - name: contact
     description: A contact api
+  - name: post
+    description: A posts api
 paths:
   /groceries:
     get:
@@ -651,6 +653,408 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GithubAuthIssue'
+  /{username}/post:
+    post:
+      tags:
+        - post
+      summary: Add a new post to the list
+      description: Add a new post to the list
+      operationId: addPost
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Create a new post in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Post'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Post'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    get:
+      tags:
+        - post
+      summary: Get all of the posts in the list
+      description: Returns an array of all of the existing posts in the list
+      operationId: getAllPosts
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+  /{username}/post/{postId}:
+    get:
+      tags:
+        - post
+      summary: Find post by ID
+      description: Returns a single post
+      operationId: getPostById
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+        - name: postId
+          in: path
+          description: ID of post to return
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: id must be a number
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Post not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostNotFound'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    put:
+      tags:
+        - post
+      summary: Update an existing post
+      description: Update an existing post by Id
+      operationId: updatePost
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+        - name: postId
+          in: path
+          description: ID of post to return
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Update an existing post in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePost'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Post not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostNotFound'
+        '400':
+          description: validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    delete:
+      tags:
+        - post
+      summary: Deletes a post
+      description: delete a post
+      operationId: deletePost
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+        - name: postId
+          in: path
+          description: Post id to delete
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful deletion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: id must be a number
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Post not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostNotFound'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+  /{username}/post/{postId}/comment:
+    post:
+      tags:
+        - post
+      summary: Add a new comment to a post
+      description: Add a new comment to a post
+      operationId: addPostComment
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Create a new comment in the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    get:
+      tags:
+        - post
+      summary: Get all of the comments on a post
+      description: Returns an array of all of the existing comments in the list
+      operationId: getAllPostComments
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+  /{username}/post/{postId}/comment/{commentId}:
+    put:
+      tags:
+        - post
+      summary: Update an existing comment
+      description: Update an existing comment by Id
+      operationId: updatePostComment
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+        - name: postId
+          in: path
+          description: ID of the post the comment is attached to
+          required: true
+          schema:
+            type: number
+        - name: commentId
+          in: path
+          description: ID of comment to return
+          required: true
+          schema:
+            type: number
+      requestBody:
+        description: Update an existing comment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateComment'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '404':
+          description: Comment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentNotFound'
+        '400':
+          description: validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    delete:
+      tags:
+        - post
+      summary: Deletes a comment
+      description: delete a comment
+      operationId: deletePostComment
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+        - name: postId
+          in: path
+          description: Post id the comment is attached to
+          required: true
+          schema:
+            type: number
+        - name: commentId
+          in: path
+          description: Comment id to delete
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful deletion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: id must be a number
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Comment not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentNotFound'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
 components:
   schemas:
     Error:
@@ -814,6 +1218,82 @@ components:
         error:
           type: string
           example: contact not found
+    Post:
+      required:
+        - title
+        - content
+        - contactId
+      type: object
+      properties:
+        title:
+          type: string
+          example: I bought a new coffee machine
+        content:
+          type: string
+          example: It's the best thing I've ever done!
+        contactId:
+          type: number
+          example: 42
+    UpdatePost:
+      required:
+        - title
+        - content
+        - contactId
+      type: object
+      properties:
+        title:
+          type: string
+          example: I bought a new coffee machine
+        content:
+          type: string
+          example: It's the best thing I've ever done!
+        contactId:
+          type: number
+          example: 42
+    PostNotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: post not found
+    Comment:
+      required:
+        - postId
+        - content
+        - contactId
+      type: object
+      properties:
+        postId:
+          type: number
+          example: 10
+        content:
+          type: string
+          example: You should get a decaff!
+        contactId:
+          type: number
+          example: 13
+    UpdateComment:
+      required:
+        - postId
+        - content
+        - contactId
+      type: object
+      properties:
+        postId:
+          type: number
+          example: 10
+        content:
+          type: string
+          example: You should get a decaff!
+        contactId:
+          type: number
+          example: 13
+    CommentNotFound:
+      type: object
+      properties:
+        error:
+          type: string
+          example: comment not found
     BadRequest:
       type: object
       properties:
