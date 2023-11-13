@@ -2,7 +2,7 @@
 
 The API server is a rest api that allows users to send API requests to routes to act as a mock API server.
 
-The data held by the server is held in memory
+The data held by the server is held in memory.
 
 ## Setup
 
