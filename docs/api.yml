@@ -7,6 +7,8 @@ servers:
 tags:
   - name: groceries
     description: A groceries api
+  - name: art
+    description: An artwork api
   - name: admin
     description: An api for admin tasks
   - name: todo
@@ -48,6 +50,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /art:
+    get:
+      tags:
+        - art
+      summary: Get a list of all artworks
+      description: Returns an array of artworks. Use the imageURL property of each artwork to retrieve the image from https://boolean-api-server.fly.dev/ ( e.g. https://boolean-api-server.fly.dev/images/paris-street-rainy-day.jpg )
+      operationId: getArtList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Art'
   /{username}/admin:
     delete:
       tags:
@@ -1275,6 +1293,24 @@ components:
           type: number
           minimum: 0
           exclusiveMinimum: true
+    Art:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        title:
+          type: string
+          example: Paris Street; Rainy Day
+        artist:
+          type: string
+          example: Gustave Caillebotte
+        imageURL:
+          type: string
+          example: /images/paris-street-rainy-day.jpg
+        publicationHistory:
+          type: array
+          example: [First publication, Second publication]
     Todo:
       required:
         - title

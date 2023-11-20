@@ -8,15 +8,19 @@ import pokemonRouter from './pokemon/pokemon.router';
 import contactRouter from './contact/contact.router';
 import postRouter from './post/post.router';
 import allRouter from './all/all.router';
+import artRouter from './art/art.router';
 import { router as groceryRouter} from './fruit/grocery.router';
 import { Username } from './middleware/username.middleware';
 import cron from 'node-cron';
 import clearAllData from './service/data-reset';
+import path from 'path';
 
 const app: Express = express();
 
 app.use(express.json());
 app.use(cors());
+
+app.use('/', express.static(path.join(__dirname, 'public')))
 
 // loading api docs
 const docFile = fs.readFileSync('./docs/api.yml', 'utf8');
@@ -32,6 +36,7 @@ app.use('/:username/pokemon', Username, pokemonRouter);
 app.use('/:username/contact', Username, contactRouter);
 app.use('/:username/post', Username, postRouter);
 app.use('/:username/admin', Username, allRouter);
+app.use('/art', artRouter);
 app.use('/groceries', groceryRouter);
 
 app.use('*', (_req: Request, res: Response) => {
