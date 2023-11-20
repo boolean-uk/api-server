@@ -7,6 +7,8 @@ servers:
 tags:
   - name: groceries
     description: A groceries api
+  - name: admin
+    description: An api for admin tasks
   - name: todo
     description: A todo list api
   - name: pokemon
@@ -46,6 +48,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /{username}:
+    delete:
+      tags:
+        - admin
+      summary: Reset all data for every endpoint
+      description: Resets all of your data
+      operationId: deleteAll
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
   /{username}/todo:
     post:
       tags:

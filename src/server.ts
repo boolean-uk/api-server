@@ -7,6 +7,7 @@ import todoRouter from './todo/todo.router';
 import pokemonRouter from './pokemon/pokemon.router';
 import contactRouter from './contact/contact.router';
 import postRouter from './post/post.router';
+import allRouter from './all/all.router';
 import { router as groceryRouter} from './fruit/grocery.router';
 import { Username } from './middleware/username.middleware';
 
@@ -28,6 +29,7 @@ app.use('/:username/todo', Username, todoRouter);
 app.use('/:username/pokemon', Username, pokemonRouter);
 app.use('/:username/contact', Username, contactRouter);
 app.use('/:username/post', Username, postRouter);
+app.use('/:username/admin', Username, allRouter);
 app.use('/groceries', groceryRouter);
 
 app.use('*', (_req: Request, res: Response) => {
