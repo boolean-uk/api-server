@@ -5,6 +5,10 @@ export class Repository<UserRepository> {
   constructor(userRepository: new () => UserRepository) {
     this.UserRepo = userRepository;
   }
+
+  clearUserRepository(username: string): void {
+    delete this.userRepos[username];
+  }
   
   getUserRepository(username: string): UserRepository | undefined {
     return this.userRepos[username];

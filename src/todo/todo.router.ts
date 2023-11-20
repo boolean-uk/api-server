@@ -13,5 +13,6 @@ router.get('/:id',Validate(ValidateGetById), controller.GetByID.bind(controller)
 router.post('/', Validate(ValidateCreateTodoDto), controller.Create.bind(controller));
 router.put('/:id', Validate(ValidateUpdateTodoDto), controller.Update.bind(controller));
 router.delete('/:id', Validate(ValidateDeleteTodo), controller.Delete.bind(controller));
+router.delete('/', controller.ClearData.bind(controller));
 
 export default router;
