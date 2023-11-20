@@ -20,7 +20,7 @@ const app: Express = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 // loading api docs
 const docFile = fs.readFileSync('./docs/api.yml', 'utf8');
