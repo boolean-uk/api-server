@@ -10,6 +10,8 @@ import postRouter from './post/post.router';
 import allRouter from './all/all.router';
 import { router as groceryRouter} from './fruit/grocery.router';
 import { Username } from './middleware/username.middleware';
+import cron from 'node-cron';
+import clearAllData from './service/data-reset';
 
 const app: Express = express();
 
@@ -43,5 +45,10 @@ app.use((_err: Error, _req: Request, res: Response, _next: NextFunction): void =
     message: 'An unknown error occurred. Is your JSON formatted correctly? Make sure there are no trailing commas!'
   });
 });
+
+cron.schedule('0 1 * * *', () => { // Run at 1am London time
+  clearAllData();
+  console.log('All data has been reset!');
+}, { scheduled: true, timezone: 'Europe/London' });
 
 export default app;
