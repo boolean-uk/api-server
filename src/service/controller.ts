@@ -63,7 +63,7 @@ export class Controller<T extends Identity, CreateDto, UpdateDto> {
   }
 
   DeleteAll(req: Context, res: Response) {
-    const cleared = this.ClearData(req);
+    const cleared = this.ClearDataForUsername(req);
 
     if (!cleared) {
       return res.status(400).json({ error: 'no data to clear' });
@@ -72,7 +72,7 @@ export class Controller<T extends Identity, CreateDto, UpdateDto> {
     return res.status(200).json({ message: 'data cleared' });
   }
 
-  ClearData(req: Context): boolean {
+  ClearDataForUsername(req: Context): boolean {
     const username = req.context?.username || null;
 
     if (!username) {
@@ -82,5 +82,9 @@ export class Controller<T extends Identity, CreateDto, UpdateDto> {
     this.repository.clearUserRepository(username);
 
     return true;
+  }
+
+  ClearAllData() {
+    this.repository.clearAllRepositories();
   }
 }

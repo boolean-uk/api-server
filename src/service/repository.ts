@@ -24,4 +24,8 @@ export class Repository<UserRepository> {
   
     return newRepo;
   }
+
+  clearAllRepositories(): void {
+    this.userRepos = {};
+  }
 }
