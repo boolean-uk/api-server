@@ -8,4 +8,6 @@ export interface CreateContactDto {
     latitude: number | null | undefined
     longitude: number | null | undefined
     jobTitle: string | null | undefined
+    favouriteColour: string | null | undefined
+    profileImage: string | null | undefined
 }

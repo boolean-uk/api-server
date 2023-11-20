@@ -1408,6 +1408,12 @@ components:
         longitude:
           type: number
           example: 629
+        favouriteColour:
+          type: string
+          example: '#0d7f26'
+        profileImage:
+          type: string
+          example: https://www.gravatar.com/avatar/sdfa@fasdf.com?s=120&d=identicon
     UpdateContact:
       required:
         - firstName
@@ -1443,6 +1449,12 @@ components:
         longitude:
           type: number
           example: 629
+        favouriteColour:
+          type: string
+          example: '#0d7f26'
+        profileImage:
+          type: string
+          example: https://www.gravatar.com/avatar/sdfa@fasdf.com?s=120&d=identicon
     ContactNotFound:
       type: object
       properties:
