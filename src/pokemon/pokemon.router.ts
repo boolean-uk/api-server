@@ -12,4 +12,6 @@ router.post('/', Validate(ValidateCreatePokemonDto), controller.Create.bind(cont
 router.delete('/:id', Validate(ValidateDeletePokemon), controller.Delete.bind(controller));
 router.put('/:id', Validate(ValidateUpdatePokemonDto), controller.Update.bind(controller));
 
+router.delete('/', controller.DeleteAll.bind(controller));
+
 export default router;

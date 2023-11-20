@@ -14,4 +14,6 @@ router.post('/', Validate(ValidateCreateContactDto), controller.Create.bind(cont
 router.delete('/:id', Validate(ValidateDeleteContactDto), controller.Delete.bind(controller));
 router.put('/:id', Validate(ValidateUpdateContactDto), controller.Update.bind(controller));
 
+router.delete('/', controller.DeleteAll.bind(controller));
+
 export default router;

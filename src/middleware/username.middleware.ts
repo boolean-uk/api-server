@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import { Context } from './context';
 
-export const Username = async (
+export const Username = (
   req: Context,
   res: Response,
   next: NextFunction,

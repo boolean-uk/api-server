@@ -14,10 +14,12 @@ router.get('/:id', Validate(ValidateGetById), controller.GetByID.bind(controller
 router.post('/', Validate(ValidateCreatePostDto), controller.Create.bind(controller));
 router.delete('/:id', Validate(ValidateGetById), controller.Delete.bind(controller));
 router.put('/:id', Validate(ValidateCreatePostDto), controller.Update.bind(controller));
+router.delete('/', controller.DeleteAll.bind(controller));
 
 router.get('/:id/comment', (req: Context, res: Response) => commentController.GetAllByFilter('postId', Number(req.params.id), req, res));
 router.post('/:id/comment', Validate(ValidateCreateCommentDto), commentController.Create.bind(commentController));
 router.put('/:postId/comment/:id', Validate(ValidateCreateCommentDto), commentController.Update.bind(commentController));
 router.delete('/:postId/comment/:id', commentController.Delete.bind(commentController));
+router.delete('/:postId/comment', commentController.DeleteAll.bind(controller));
 
 export default router;

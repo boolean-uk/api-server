@@ -61,4 +61,30 @@ export class Controller<T extends Identity, CreateDto, UpdateDto> {
           
     return res.status(200).json(data);
   }
+
+  DeleteAll(req: Context, res: Response) {
+    const cleared = this.ClearDataForUsername(req);
+
+    if (!cleared) {
+      return res.status(400).json({ error: 'no data to clear' });
+    }
+
+    return res.status(200).json({ message: 'data cleared' });
+  }
+
+  ClearDataForUsername(req: Context): boolean {
+    const username = req.context?.username || null;
+
+    if (!username) {
+      return false;
+    }
+
+    this.repository.clearUserRepository(username);
+
+    return true;
+  }
+
+  ClearAllData() {
+    this.repository.clearAllRepositories();
+  }
 }

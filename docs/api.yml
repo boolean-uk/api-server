@@ -7,6 +7,8 @@ servers:
 tags:
   - name: groceries
     description: A groceries api
+  - name: admin
+    description: An api for admin tasks
   - name: todo
     description: A todo list api
   - name: pokemon
@@ -46,6 +48,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /{username}/admin:
+    delete:
+      tags:
+        - admin
+      summary: Reset all data for every endpoint
+      description: Resets all of your data
+      operationId: deleteAll
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
   /{username}/todo:
     post:
       tags:
@@ -117,6 +146,38 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Todo'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    delete:
+      tags:
+        - todo
+      summary: Delete all todo data
+      description: Clear all todo data
+      operationId: deleteAllTodos
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: No data to delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
           description: The username provided is not part of the boolean-uk github organisation
           content:
@@ -340,6 +401,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GithubAuthIssue'
+    delete:
+      tags:
+        - pokemon
+      summary: Delete all pokemon data
+      description: Clear all pokemon data
+      operationId: deleteAllPokemon
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: No data to delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
   /{username}/pokemon/{pokemonId}:
     put:
       tags:
@@ -507,6 +600,38 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Contact'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
+    delete:
+      tags:
+        - contact
+      summary: Delete all contact data
+      description: Clear all contact data
+      operationId: deleteAllContacts
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: No data to delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
           description: The username provided is not part of the boolean-uk github organisation
           content:
@@ -730,6 +855,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GithubAuthIssue'
+    delete:
+      tags:
+        - post
+      summary: Delete all post data
+      description: Clear all post data
+      operationId: deleteAllPosts
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: No data to delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
   /{username}/post/{postId}:
     get:
       tags:
@@ -947,6 +1104,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GithubAuthIssue'
+    delete:
+      tags:
+        - post
+      summary: Delete all comment data
+      description: Clear all comment data
+      operationId: deleteAllComments
+      parameters:
+        - name: username
+          in: path
+          description: your github username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: No data to delete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: The username provided is not part of the boolean-uk github organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GithubAuthIssue'
   /{username}/post/{postId}/comment/{commentId}:
     put:
       tags:
@@ -1063,6 +1252,12 @@ components:
         error:
           type: string
           example: invalid item type
+    Message:
+      type: object
+      properties:
+        message:
+          type: string
+          example: successful operation
     Grocery:
       type: object
       properties:
