@@ -48,7 +48,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /{username}:
+  /{username}/admin:
     delete:
       tags:
         - admin
