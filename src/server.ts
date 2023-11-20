@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/', express.static(path.join(__dirname, 'public')));
+console.log(path.join(__dirname, 'public'));
 
 // loading api docs
 const docFile = fs.readFileSync('./docs/api.yml', 'utf8');
