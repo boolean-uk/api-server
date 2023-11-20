@@ -45,6 +45,6 @@ You can verify the status of the online app at `https://boolean-api-server.fly.d
 
 ## Teacher Routes
 
-Teachers can reset all data at any time by making a DELETE request to `http://localhost:3000/GITHUB_USERNAME/admin/teacher`, replacing GITHUB_USERNAME with your actual github username.
+Teachers can reset all data at any time by making a DELETE request to `https://boolean-api-server.fly.dev/GITHUB_USERNAME/admin/teacher`, replacing GITHUB_USERNAME with your actual github username.
 
 The list of teachers with access is stored in the teacher middleware.
