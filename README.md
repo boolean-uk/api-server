@@ -42,3 +42,9 @@ You can verify the status of the online app at `https://boolean-api-server.fly.d
 1. Make sure you are authenticated against this app; run `fly auth login` if needed.
 2. If needed, add or update the environment variables by running `fly secrets set VAR_NAME=xxx`
 3. Deploy with `npm run deploy`
+
+## Teacher Routes
+
+Teachers can reset all data at any time by making a DELETE request to `http://localhost:3000/GITHUB_USERNAME/admin/teacher`, replacing GITHUB_USERNAME with your actual github username.
+
+The list of teachers with access is stored in the teacher middleware.

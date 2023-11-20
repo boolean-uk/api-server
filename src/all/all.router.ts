@@ -20,13 +20,13 @@ router.delete('/', (req: Context, res: Response) => {
 });
 
 router.delete('/teacher', Teacher, (req: Context, res: Response) => {
-    contactController.ClearAllData();
-    todoController.ClearAllData();
-    pokemonController.ClearAllData();
-    postController.ClearAllData();
-    commentController.ClearAllData();
+  contactController.ClearAllData();
+  todoController.ClearAllData();
+  pokemonController.ClearAllData();
+  postController.ClearAllData();
+  commentController.ClearAllData();
   
-    res.status(200).json({ message: 'data cleared' });
-})
+  res.status(200).json({ message: 'data cleared' });
+});
 
 export default router;
