@@ -8,7 +8,7 @@ export default [
   {
     'id': 2,
     'name': 'Charmander',
-    'image': 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Pok%C3%A9mon_Charmander_art.png/220px-Pok%C3%A9mon_Charmander_art.png',
+    'image': 'https://img.pokemondb.net/artwork/large/charmander.jpg',
     'liked': false
   },
   {
