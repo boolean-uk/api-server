@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for boolean-uk-api-server on 2024-04-05T15:50:31+02:00
+# fly.toml app configuration file generated for boolean-uk-api-server on 2024-04-08T09:36:06+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -27,6 +27,4 @@ primary_region = 'ams'
     soft_limit = 40
 
 [[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
+  size = 'shared-cpu-1x'
