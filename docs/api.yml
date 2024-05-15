@@ -3,7 +3,7 @@ info:
   title: API Server
   version: 0.0.4
 servers:
-  - url: https://boolean-api-server.fly.dev
+  - url: https://boolean-uk-api-server.fly.dev
 tags:
   - name: groceries
     description: A groceries api
