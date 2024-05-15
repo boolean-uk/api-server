@@ -43,6 +43,12 @@ You can verify the status of the online app at `https://boolean-api-server.fly.d
 2. If needed, add or update the environment variables by running `fly secrets set VAR_NAME=xxx`
 3. Deploy with `npm run deploy`
 
+## Concurrency
+
+If the app runs with concurrency we'll end up with 2 data sets causing issues with data persistence. If we ever create a new deploy, we may need to set the max machine count to 1 using the below command:
+
+`fly scale count 1`
+
 ## Teacher Routes
 
 Teachers can reset all data at any time by making a DELETE request to `https://boolean-api-server.fly.dev/GITHUB_USERNAME/admin/teacher`, replacing GITHUB_USERNAME with your actual github username.
